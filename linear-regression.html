@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bayesian Framework &#8212; Bayesian-ML</title>
+    <title>Bayesian Linear Regression &#8212; Bayesian-ML</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -56,8 +56,6 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Coin toss problem" href="coin-toss.html" />
-    <link rel="prev" title="Notations" href="notations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -96,14 +94,14 @@
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="notations.html">
    Notations
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="bayesian-framework.html">
    Bayesian Framework
   </a>
  </li>
@@ -153,7 +151,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/bayesian-framework.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/linear-regression.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -178,7 +176,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/patel-zeel/bayesian-ml/main?urlpath=tree/bayesian-framework.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/patel-zeel/bayesian-ml/main?urlpath=tree/linear-regression.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -186,7 +184,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/patel-zeel/bayesian-ml/blob/main/bayesian-framework.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/patel-zeel/bayesian-ml/blob/main/linear-regression.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -206,14 +204,36 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modeling-the-parameters-e-g-coin-toss-linear-regression">
-   1. Modeling the parameters (e.g. coin toss, linear regression)
+  <a class="reference internal nav-link" href="#what-is-the-problem">
+   What is the problem?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modeling-the-outputs-e-g-gaussian-processes">
-   2. Modeling the outputs (e.g. Gaussian processes)
+  <a class="reference internal nav-link" href="#applying-bayes-rule">
+   Applying Bayes Rule
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prior">
+     Prior
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
+     Maximum Likelihood Estimation (MLE)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-map">
+     Maximum a posteriori estimation (MAP)
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -225,7 +245,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Bayesian Framework</h1>
+                <h1>Bayesian Linear Regression</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -236,14 +256,36 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modeling-the-parameters-e-g-coin-toss-linear-regression">
-   1. Modeling the parameters (e.g. coin toss, linear regression)
+  <a class="reference internal nav-link" href="#what-is-the-problem">
+   What is the problem?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#modeling-the-outputs-e-g-gaussian-processes">
-   2. Modeling the outputs (e.g. Gaussian processes)
+  <a class="reference internal nav-link" href="#applying-bayes-rule">
+   Applying Bayes Rule
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prior">
+     Prior
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
+     Maximum Likelihood Estimation (MLE)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-map">
+     Maximum a posteriori estimation (MAP)
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -254,43 +296,75 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="bayesian-framework">
-<h1>Bayesian Framework<a class="headerlink" href="#bayesian-framework" title="Permalink to this headline">¶</a></h1>
-<!-- <textarea> -->
-<p>The entire Bayesian modeling is based on the Bayes rule stated as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d65d63f1-48cb-4367-a74f-08ffa2fb9dab">
-<span class="eqno">(1)<a class="headerlink" href="#equation-d65d63f1-48cb-4367-a74f-08ffa2fb9dab" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-p(B|A) = \frac{p(A|B)}{p(A)}p(B)
-\end{equation}\]</div>
-<p>But, what is A and B? well, it depends on our need. As long as it follows the principles of math, we can model anything using the Bayes rule.</p>
-<p>In classification and regression problems, our focus is to model the outputs in form of probability distributions. We will mainly look into two kinds of modeling.</p>
-<div class="section" id="modeling-the-parameters-e-g-coin-toss-linear-regression">
-<span id="parameters-framework"></span><h2>1. Modeling the parameters (e.g. coin toss, linear regression)<a class="headerlink" href="#modeling-the-parameters-e-g-coin-toss-linear-regression" title="Permalink to this headline">¶</a></h2>
-<p>Here, we will assume a prior distribution (mostly continuous) over the model parameters <span class="math notranslate nohighlight">\(\theta\)</span> and derive a posterior distribution of parameters conditioned on the observed data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-586c438e-f15c-460f-9101-01f51c29010d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-586c438e-f15c-460f-9101-01f51c29010d" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-\underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
-\end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-42d45b2f-a5eb-46bf-840d-0b4687b3c995">
-<span class="eqno">(3)<a class="headerlink" href="#equation-42d45b2f-a5eb-46bf-840d-0b4687b3c995" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-p(D) = \int_{\theta}p(D|\theta)p(\theta)d\theta
-\end{equation}\]</div>
-<p>In this type of modeling, distribution over the outputs may be derived from the predictive distribution of parameters.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="bayesian-linear-regression">
+<h1>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-the-problem">
+<h2>What is the problem?<a class="headerlink" href="#what-is-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Given inputs <span class="math notranslate nohighlight">\(X\)</span> and outputs <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, we want to find the best parameters <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>, such that predictions <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = X\boldsymbol{\theta}\)</span> can estimate <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> very well. In other words, we want L2 norm of errors <span class="math notranslate nohighlight">\(||\hat{\mathbf{y}} - \mathbf{y}||_2\)</span>, as low as possible.</p>
 </div>
-<div class="section" id="modeling-the-outputs-e-g-gaussian-processes">
-<span id="outputs-framework"></span><h2>2. Modeling the outputs (e.g. Gaussian processes)<a class="headerlink" href="#modeling-the-outputs-e-g-gaussian-processes" title="Permalink to this headline">¶</a></h2>
-<p>Here, we will assume a prior distribution over the outputs (functions) <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>. Posterior distribution is the distribution over the outputs conditioned on observed data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-484f968d-5564-41ab-8c36-5e89a0ca3349">
-<span class="eqno">(4)<a class="headerlink" href="#equation-484f968d-5564-41ab-8c36-5e89a0ca3349" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-\underbrace{p(\mathbf{f}|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\mathbf{f})}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\mathbf{f})}_{\text{Prior}}
+<div class="section" id="applying-bayes-rule">
+<h2>Applying Bayes Rule<a class="headerlink" href="#applying-bayes-rule" title="Permalink to this headline">¶</a></h2>
+<p>In this problem, we will <a class="reference internal" href="bayesian-framework.html#parameters-framework"><span class="std std-ref">model the distribution of parameters</span></a>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7fad4d3c-fcdb-4355-afc3-4dd6a51b8ffa">
+<span class="eqno">()<a class="headerlink" href="#equation-7fad4d3c-fcdb-4355-afc3-4dd6a51b8ffa" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\underbrace{p(\boldsymbol{\theta}|X, \mathbf{y})}_{\text{Posterior}} = \frac{\overbrace{p(\mathbf{y}|X, \boldsymbol{\theta})}^{\text{Likelihood}}}{\underbrace{p(\mathbf{y}|X)}_{\text{Evidence}}}\underbrace{p(\boldsymbol{\theta})}_{\text{Prior}}
 \end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-f72ab5da-870a-437e-9be4-bb6f4fcd7ed8">
-<span class="eqno">(5)<a class="headerlink" href="#equation-f72ab5da-870a-437e-9be4-bb6f4fcd7ed8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
-p(D) = \int_{\mathbf{f}}p(D|\mathbf{f})p(\mathbf{f})d\mathbf{f}
+<div class="amsmath math notranslate nohighlight" id="equation-7e9c3798-8fcb-4f13-87a3-3ce2db7d8ceb">
+<span class="eqno">()<a class="headerlink" href="#equation-7e9c3798-8fcb-4f13-87a3-3ce2db7d8ceb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+p(\mathbf{y}|X) = \int_{\boldsymbol{\theta}}p(\mathbf{y}|X, \boldsymbol{\theta})p(\boldsymbol{\theta})d\boldsymbol{\theta}
 \end{equation}\]</div>
-<p>Don’t worry about the details if you got the bigger picture for now.</p>
-<p>Let’s move to the simplest example in probability, a coin toss experiment!</p>
-<!-- </textarea> --></div>
+<p>We are interested in posterior <span class="math notranslate nohighlight">\(p(\boldsymbol{\theta}|X, \mathbf{y})\)</span> and to derive that, we need prior, likelihood and evidence terms. Let us look at them one by one.</p>
+<div class="section" id="prior">
+<h3>Prior<a class="headerlink" href="#prior" title="Permalink to this headline">¶</a></h3>
+<p>Let’s assume a multivariate Gaussian prior over the <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> vector.</p>
+<div class="math notranslate nohighlight">
+\[
+p(\theta) \sim \mathcal{N}(\boldsymbol{\mu}_0, \Sigma_0)
+\]</div>
+</div>
+<div class="section" id="likelihood">
+<h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
+<p>Given a <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>, our prediction is <span class="math notranslate nohighlight">\(X\boldsymbol{\theta}\)</span>. Our data <span class="math notranslate nohighlight">\(\mathbf{y}|X\)</span> will have some irreducible noise which needs to be incorporated in the likelihood. Thus, we can assume the likelihood distribution over <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> to be centered at <span class="math notranslate nohighlight">\(X\boldsymbol{\theta}\)</span> with random i.i.d. homoskedastic noise with variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{y}|X, \theta) \sim \mathcal{N}(X\boldsymbol{\theta}, \sigma^2I)
+\]</div>
+</div>
+<div class="section" id="maximum-likelihood-estimation-mle">
+<h3>Maximum Likelihood Estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this headline">¶</a></h3>
+<p>Let us find the optimal parameters by differentiating likelihood <span class="math notranslate nohighlight">\(p(\mathbf{y}|X, \boldsymbol{\theta})\)</span> w.r.t <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0d1f5b67-a4a7-44e6-9c7c-c1fdea9597fb">
+<span class="eqno">()<a class="headerlink" href="#equation-0d1f5b67-a4a7-44e6-9c7c-c1fdea9597fb" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+p(\mathbf{y}|X, \boldsymbol{\theta}) = \frac{1}{\sqrt{(2\pi)^n |\sigma^2I|}}\exp \left( (\mathbf{y} - X\boldsymbol{\theta})^T(\sigma^2I)^{-1}(\mathbf{y} - X\boldsymbol{\theta}) \right)
+\end{equation}\]</div>
+<p>Simplifying the above equation:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-814f0e5d-f929-4211-aea1-2846e1ab90e7">
+<span class="eqno">()<a class="headerlink" href="#equation-814f0e5d-f929-4211-aea1-2846e1ab90e7" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+p(\mathbf{y}|X, \boldsymbol{\theta}) = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}}\exp \left( \sigma^{-2}(\mathbf{y} - X\boldsymbol{\theta})^T(\mathbf{y} - X\boldsymbol{\theta}) \right)
+\end{equation}\]</div>
+<p>Taking log to simplify further:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e231a853-8db9-4f07-b7c6-4552bd28571c">
+<span class="eqno">()<a class="headerlink" href="#equation-e231a853-8db9-4f07-b7c6-4552bd28571c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\log p(\mathbf{y}|X, \boldsymbol{\theta}) &amp;= (\mathbf{y} - X\boldsymbol{\theta})^T(\mathbf{y} - X\boldsymbol{\theta}) + \log \sigma^{-2} + \log \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}}\\
+\frac{d}{d\boldsymbol{\theta}} \log p(\mathbf{y}|X, \boldsymbol{\theta}) &amp;= \frac{d}{d\boldsymbol{\theta}}(\mathbf{y} - X\boldsymbol{\theta})^T(\mathbf{y} - X\boldsymbol{\theta})\\
+&amp;= \frac{d}{d\boldsymbol{\theta}}(\mathbf{y}^T - \boldsymbol{\theta}^TX^T)(\mathbf{y} - X\boldsymbol{\theta})\\
+&amp;= \frac{d}{d\boldsymbol{\theta}} \left[ \mathbf{y}^T\mathbf{y} - \mathbf{y}^TX\boldsymbol{\theta} - \boldsymbol{\theta}^TX^T\mathbf{y} + \boldsymbol{\theta}^TX^TX\boldsymbol{\theta}\right]\\
+&amp;= -(\mathbf{y}^TX)^T - X^T\mathbf{y} + 2X^TX\boldsymbol{\theta} = 0\\
+\therefore X^TX\boldsymbol{\theta} &amp;= X^T\mathbf{y}\\
+\therefore  \boldsymbol{\theta}_{MLE} &amp;= (X^TX)^{-1}X^T\mathbf{y}
+\end{align}\]</div>
+<p>We used some of the formulas from <a class="reference external" href="http://www.gatsby.ucl.ac.uk/teaching/courses/sntn/sntn-2017/resources/Matrix_derivatives_cribsheet.pdf">this cheatsheet</a> but they can also be derived from scratch.</p>
+</div>
+<div class="section" id="maximum-a-posteriori-estimation-map">
+<h3>Maximum a posteriori estimation (MAP)<a class="headerlink" href="#maximum-a-posteriori-estimation-map" title="Permalink to this headline">¶</a></h3>
+<p>We know from <a class="reference internal" href="coin-toss.html#map-1"><span class="std std-ref">the previous discussion</span></a> that:</p>
+<div class="math notranslate nohighlight">
+\[
+\arg \max_{\boldsymbol{\theta}} p(\boldsymbol{\theta}|X, \mathbf{y}) = \arg \max_{\boldsymbol{\theta}} p(\mathbf{y}|X, \boldsymbol{\theta})p(\boldsymbol{\theta})
+\]</div>
+<p>Now, differentiating <span class="math notranslate nohighlight">\(p(\mathbf{y}|X, \boldsymbol{\theta})p(\boldsymbol{\theta})\)</span> w.r.t <span class="math notranslate nohighlight">\(\theta\)</span> by reusing some of the steps from MLE:</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -317,21 +391,7 @@ p(D) = \int_{\mathbf{f}}p(D|\mathbf{f})p(\mathbf{f})d\mathbf{f}
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="notations.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Notations</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="coin-toss.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Coin toss problem</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
             
         </div>

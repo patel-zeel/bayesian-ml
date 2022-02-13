@@ -336,12 +336,12 @@
 <div class="section" id="applying-bayes-rule">
 <h2>Applying Bayes rule<a class="headerlink" href="#applying-bayes-rule" title="Permalink to this headline">¶</a></h2>
 <p>In this problem, we will <a class="reference internal" href="bayesian-framework.html#parameters-framework"><span class="std std-ref">model the distribution of parameters</span></a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41b5dd08-5024-42aa-b492-ea462261ff9b">
-<span class="eqno">(6)<a class="headerlink" href="#equation-41b5dd08-5024-42aa-b492-ea462261ff9b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-fbd9de2d-31a9-444f-ba79-7c9ceee10669">
+<span class="eqno">(6)<a class="headerlink" href="#equation-fbd9de2d-31a9-444f-ba79-7c9ceee10669" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
 \end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-0defa790-57f5-476a-af92-136a02c6daa0">
-<span class="eqno">(7)<a class="headerlink" href="#equation-0defa790-57f5-476a-af92-136a02c6daa0" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-8fc73cd9-4c92-4984-92d4-fef9bec719ac">
+<span class="eqno">(7)<a class="headerlink" href="#equation-8fc73cd9-4c92-4984-92d4-fef9bec719ac" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(D) = \int_{\theta}p(D|\theta)p(\theta)d\theta
 \end{equation}\]</div>
 <p>We are interested in <span class="math notranslate nohighlight">\(p(\theta|D)\)</span> and to derive that, we need prior, likelihood and evidence terms. Let us look at them one by one.</p>
@@ -367,8 +367,8 @@ p(D|\theta) = \theta^h(1-\theta)^{n-h}
 <div class="section" id="maximum-likelihood-estimation-mle">
 <h3>Maximum likelihood estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this headline">¶</a></h3>
 <p>In cases, where prior is not available, we can use likelihood to get the best estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. Let us find the optimal theta by differentiating likelihood <span class="math notranslate nohighlight">\(p(D|\theta)\)</span> w.r.t <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-162a0ea0-d59c-40aa-9a2f-f80a8c84a02d">
-<span class="eqno">(8)<a class="headerlink" href="#equation-162a0ea0-d59c-40aa-9a2f-f80a8c84a02d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f720869d-1e26-4855-936c-7a858659e9ac">
+<span class="eqno">(8)<a class="headerlink" href="#equation-f720869d-1e26-4855-936c-7a858659e9ac" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(D|\theta) &amp;= (\theta)^h(1-\theta)^{n-h}\\
 \text{taking log both sides to simplify things,}\\
 \log p(D|\theta) &amp;= h\log(\theta)+(n-h)\log(1-\theta)\\
@@ -378,18 +378,18 @@ p(D|\theta) &amp;= (\theta)^h(1-\theta)^{n-h}\\
 \therefore \theta_{MLE} = \frac{h}{n}
 \end{align}\]</div>
 <p>How can we know if optima at <span class="math notranslate nohighlight">\(\theta_{MLE}\)</span> is a maxima? well, it is a maxima if <span class="math notranslate nohighlight">\(\frac{d^2}{d\theta^2}\log p(D|\theta)\)</span> is negative <a class="reference external" href="https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/optimizing-multivariable-functions/a/second-partial-derivative-test">(check here if not convinced)</a>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4ad93427-2071-4d5e-afe3-665aa7423f0d">
-<span class="eqno">(9)<a class="headerlink" href="#equation-4ad93427-2071-4d5e-afe3-665aa7423f0d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d6976040-32f4-4355-bfa0-c2a681d1dcae">
+<span class="eqno">(9)<a class="headerlink" href="#equation-d6976040-32f4-4355-bfa0-c2a681d1dcae" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \frac{d}{d\theta}\log p(D|\theta) &amp;= \frac{h}{\theta} - \frac{n-h}{1-\theta}\\
 \frac{d^2}{d\theta^2}\log p(D|\theta) &amp;= -\frac{h}{\theta^2}-\frac{n-h}{(1-\theta)^2}
 \end{align}\]</div>
 <p>After a bit of thinking, one can see that above value is always negative and thus our optima is a maxima.</p>
 </div>
 <div class="section" id="maximum-a-posteriori-estimation-map">
-<h3>Maximum a posteriori estimation (MAP)<a class="headerlink" href="#maximum-a-posteriori-estimation-map" title="Permalink to this headline">¶</a></h3>
+<span id="map-1"></span><h3>Maximum a posteriori estimation (MAP)<a class="headerlink" href="#maximum-a-posteriori-estimation-map" title="Permalink to this headline">¶</a></h3>
 <p>We know that posterior is given by the following formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f8a16baa-08ef-49df-85b9-1688d009c19a">
-<span class="eqno">(10)<a class="headerlink" href="#equation-f8a16baa-08ef-49df-85b9-1688d009c19a" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b925b5c6-f277-4be7-b820-604c6d2b659b">
+<span class="eqno">(10)<a class="headerlink" href="#equation-b925b5c6-f277-4be7-b820-604c6d2b659b" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
 \end{equation}\]</div>
 <p>If we are only interested in maximum probable value of <span class="math notranslate nohighlight">\(\theta\)</span> in the posterior (point estimate in other words), we can differentiate the posterior w.r.t. <span class="math notranslate nohighlight">\(\theta\)</span>. However, we have not yet derived the evidence but it does not depend on <span class="math notranslate nohighlight">\(\theta\)</span>. So, we can claim that the following is true:</p>
@@ -398,8 +398,8 @@ p(D|\theta) &amp;= (\theta)^h(1-\theta)^{n-h}\\
 \arg \max_{\theta} p(\theta|D) = \arg \max_{\theta} p(D|\theta)p(\theta)
 \]</div>
 <p>Now, differentiating <span class="math notranslate nohighlight">\(p(D|\theta)p(\theta)\)</span> w.r.t <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2f937299-171c-41a7-81e1-1f72f7f0193e">
-<span class="eqno">(11)<a class="headerlink" href="#equation-2f937299-171c-41a7-81e1-1f72f7f0193e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5f676cea-c8f9-4b6c-877f-c4c7887b9913">
+<span class="eqno">(11)<a class="headerlink" href="#equation-5f676cea-c8f9-4b6c-877f-c4c7887b9913" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(D|\theta)p(\theta) &amp;= \theta^h(1-\theta)^{N-h}\cdot\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha, \beta)}\\
                      &amp;= \frac{\theta^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}}{B(\alpha, \beta)}\\
 \text{Taking log for simplification}\\
@@ -419,8 +419,8 @@ p(D|\theta)p(\theta) &amp;= \theta^h(1-\theta)^{N-h}\cdot\frac{\theta^{\alpha-1}
 p(D) = \int\limits_{\theta}p(D|\theta)p(\theta)d\theta
 \]</div>
 <p>Substituting the values and deriving the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b54a4b23-77e8-40f1-bc87-4d24a56464f3">
-<span class="eqno">(12)<a class="headerlink" href="#equation-b54a4b23-77e8-40f1-bc87-4d24a56464f3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-fa59e479-74f1-4790-9072-68e79c9c73f8">
+<span class="eqno">(12)<a class="headerlink" href="#equation-fa59e479-74f1-4790-9072-68e79c9c73f8" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(D) &amp;= \int\limits_{0}^{1}p(D|\theta)p(\theta)d\theta\\
      &amp;= \int\limits_{0}^{1}(\theta)^h(1-\theta)^{N-h}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}d\theta\\
      &amp;= \frac{1}{B(\alpha,\beta)}\int\limits_{0}^{1}(\theta)^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}d\theta\\
@@ -432,8 +432,8 @@ p(D) &amp;= \int\limits_{0}^{1}p(D|\theta)p(\theta)d\theta\\
 <div class="section" id="posterior">
 <h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">¶</a></h3>
 <p>Now, we have all the required terms to compute the posterior <span class="math notranslate nohighlight">\(p(\theta|D)\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8bc169ec-2c0e-4e47-8fe8-0da5d047f5cf">
-<span class="eqno">(13)<a class="headerlink" href="#equation-8bc169ec-2c0e-4e47-8fe8-0da5d047f5cf" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-770d18c1-ae93-479a-8993-5202b1db0fc1">
+<span class="eqno">(13)<a class="headerlink" href="#equation-770d18c1-ae93-479a-8993-5202b1db0fc1" title="Permalink to this equation">¶</a></span>\[\begin{align}
 p(\theta|D) &amp;= \frac{p(D|\theta)}{p(D)}p(\theta)\\
 &amp;= \theta^h(1-\theta)^{n-h} \cdot \frac{B(\alpha,\beta)}{B(h+\alpha, N-h+\beta)} \cdot \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}\\
 &amp;= \frac{\theta^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}}{B(h+\alpha, N-h+\beta)}
