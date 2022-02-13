@@ -1,0 +1,32 @@
+#######################################################################################
+# A default configuration that will be loaded for all jupyter books
+# See the documentation for help and more options: 
+# https://jupyterbook.org/customize/config.html
+
+#######################################################################################
+# Book settings
+title                       : Bayesian-ML  # The title of the book. Will be placed in the left navbar.
+author                      : Zeel B Patel  # The author of the book
+copyright                   : "2022"  # Copyright year to be placed in the footer
+# logo                        : Logo.png  # A path to the book logo
+execute:
+  execute_notebooks: false
+  
+# bibtex_bibfiles:
+#   - references.bib
+  
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
+#   thebe: true
+
+repository:
+  url: https://github.com/patel-zeel/bayesian-ml
+  branch: main
+  
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify 
+    - substitution
