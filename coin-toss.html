@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coin toss problem &#8212; Bayesian-ML</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Bayesian Framework" href="bayesian-framework.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Bayesian-ML</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   What is this book?
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="notations.html">
+   Notations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bayesian-framework.html">
+   Bayesian Framework
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Coin toss problem
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/coin-toss.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/patel-zeel/bayesian-ml/main?urlpath=tree/coin-toss.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/patel-zeel/bayesian-ml/blob/main/coin-toss.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-the-problem">
+   What is the problem?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-bayes-rule">
+   Applying Bayes rule
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prior">
+     Prior
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
+     Maximum likelihood estimation (MLE)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-map">
+     Maximum a posteriori estimation (MAP)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evidence">
+     Evidence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior">
+     Posterior
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#map-is-not-the-expected-value-of-the-posterior">
+   MAP is not the expected value of the posterior
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Coin toss problem</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-the-problem">
+   What is the problem?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applying-bayes-rule">
+   Applying Bayes rule
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prior">
+     Prior
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">
+     Maximum likelihood estimation (MLE)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-a-posteriori-estimation-map">
+     Maximum a posteriori estimation (MAP)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evidence">
+     Evidence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior">
+     Posterior
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#map-is-not-the-expected-value-of-the-posterior">
+   MAP is not the expected value of the posterior
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="coin-toss-problem">
+<h1>Coin toss problem<a class="headerlink" href="#coin-toss-problem" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-the-problem">
+<h2>What is the problem?<a class="headerlink" href="#what-is-the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Let’s pick up a random coin (not necessarily a fair one with equal probability of head and tail). We did the coin toss experiment <span class="math notranslate nohighlight">\(n\)</span> times and gathered the observed data <span class="math notranslate nohighlight">\(D\)</span> as a set of outcomes (e.g. <span class="math notranslate nohighlight">\(\{H, T, T, ...\}\)</span>). Now, we are interested in predicting the probability of heads <span class="math notranslate nohighlight">\(p(H)=\theta_{best}\)</span> for our coin.</p>
+</div>
+<div class="section" id="applying-bayes-rule">
+<h2>Applying Bayes rule<a class="headerlink" href="#applying-bayes-rule" title="Permalink to this headline">¶</a></h2>
+<p>In this problem, we will <a class="reference internal" href="bayesian-framework.html#parameters-framework"><span class="std std-ref">model the distribution of parameters</span></a>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-3f577f62-62ef-41d7-9d0c-298549e4d10c">
+<span class="eqno">(6)<a class="headerlink" href="#equation-3f577f62-62ef-41d7-9d0c-298549e4d10c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
+\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-e9385672-b1b2-42e3-b707-218dc8d8b3b8">
+<span class="eqno">(7)<a class="headerlink" href="#equation-e9385672-b1b2-42e3-b707-218dc8d8b3b8" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+p(D) = \int_{\theta}p(D|\theta)p(\theta)d\theta
+\end{equation}\]</div>
+<p>We are interested in <span class="math notranslate nohighlight">\(p(\theta|D)\)</span> and to derive that, we need prior, likelihood and evidence terms. Let us look at them one by one.</p>
+<div class="section" id="prior">
+<h3>Prior<a class="headerlink" href="#prior" title="Permalink to this headline">¶</a></h3>
+<p>What is our prior belief about the coin’s probability of head <span class="math notranslate nohighlight">\(p(\)</span>H<span class="math notranslate nohighlight">\()\)</span>? Yes, that’s exactly the question. A most simple way is to assume equal probability of heads and tails. However, we can represent our prior belief in terms of a distribution. Let’s assume a beta distribution over the probability of heads <span class="math notranslate nohighlight">\(p(H) = \theta\)</span> (we will see in later sections why beta and not Gaussian or uniform or something else?). So, our prior distibution <span class="math notranslate nohighlight">\(p(\theta)\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p(\theta|\alpha, \beta) = \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}, \alpha,\beta&gt;0\\
+B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}\\
+\Gamma(\alpha) = (\alpha-1)!
+\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are the hyperparameters of the beta distrubution. <span class="math notranslate nohighlight">\(B\)</span> is Beta function. You may play with <a class="reference external" href="https://huggingface.co/spaces/Zeel/Beta_distribution">this interactive demo</a> to see how pdf changes with <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. In our modeling, we can assume that <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are already known. There are methods of assuming distributions over the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> as well but that’s out of the scope for now.</p>
+</div>
+<div class="section" id="likelihood">
+<h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
+<p>Likelihood is probability of observing the data <span class="math notranslate nohighlight">\(D\)</span> given <span class="math notranslate nohighlight">\(\theta\)</span>. From, <span class="math notranslate nohighlight">\(n\)</span> number of experiments, if we received heads <span class="math notranslate nohighlight">\(h\)</span> times, then <span class="math notranslate nohighlight">\(p(D|\theta)\)</span> follows a Bernoulli distribution. We can also arrive at this formula by following the basic probability rules for independent events:</p>
+<div class="math notranslate nohighlight">
+\[
+p(D|\theta) = \theta^h(1-\theta)^{n-h}
+\]</div>
+</div>
+<div class="section" id="maximum-likelihood-estimation-mle">
+<h3>Maximum likelihood estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this headline">¶</a></h3>
+<p>In cases, where prior is not available, we can use likelihood to get the best estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. Let us find the optimal theta by differentiating likelihood <span class="math notranslate nohighlight">\(p(D|\theta)\)</span> w.r.t <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-42487e79-5a7f-4583-b4bc-105d45e4244f">
+<span class="eqno">(8)<a class="headerlink" href="#equation-42487e79-5a7f-4583-b4bc-105d45e4244f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(D|\theta) &amp;= (\theta)^h(1-\theta)^{n-h}\\
+\text{taking log both sides to simplify things,}\\
+\log p(D|\theta) &amp;= h\log(\theta)+(n-h)\log(1-\theta)\\
+\frac{d}{d\theta}\log p(D|\theta) &amp;= \frac{h}{\theta} - \frac{n-h}{1-\theta} = 0\\
+&amp;= h(1-\theta)-(n-h)\theta = 0\\
+&amp;= h - h\theta - n\theta + h\theta = 0\\
+\therefore \theta_{MLE} = \frac{h}{n}
+\end{align}\]</div>
+<p>How can we know if optima at <span class="math notranslate nohighlight">\(\theta_{MLE}\)</span> is a maxima? well, it is a maxima if <span class="math notranslate nohighlight">\(\frac{d^2}{d\theta^2}\log p(D|\theta)\)</span> is negative <a class="reference external" href="https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/optimizing-multivariable-functions/a/second-partial-derivative-test">(check here if not convinced)</a>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-bfbc6a59-2ed3-473d-a78e-9457ced36498">
+<span class="eqno">(9)<a class="headerlink" href="#equation-bfbc6a59-2ed3-473d-a78e-9457ced36498" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\frac{d}{d\theta}\log p(D|\theta) &amp;= \frac{h}{\theta} - \frac{n-h}{1-\theta}\\
+\frac{d^2}{d\theta^2}\log p(D|\theta) &amp;= -\frac{h}{\theta^2}-\frac{n-h}{(1-\theta)^2}
+\end{align}\]</div>
+<p>After a bit of thinking, one can see that above value is always negative and thus our optima is a maxima.</p>
+</div>
+<div class="section" id="maximum-a-posteriori-estimation-map">
+<h3>Maximum a posteriori estimation (MAP)<a class="headerlink" href="#maximum-a-posteriori-estimation-map" title="Permalink to this headline">¶</a></h3>
+<p>We know that posterior is given by the following formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0c34a90b-95fd-4991-966c-8ad97805d7be">
+<span class="eqno">(10)<a class="headerlink" href="#equation-0c34a90b-95fd-4991-966c-8ad97805d7be" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
+\end{equation}\]</div>
+<p>If we are only interested in maximum probable value of <span class="math notranslate nohighlight">\(\theta\)</span> in the posterior (point estimate in other words), we can differentiate the posterior w.r.t. <span class="math notranslate nohighlight">\(\theta\)</span>. However, we have not yet derived the evidence but it does not depend on <span class="math notranslate nohighlight">\(\theta\)</span>. So, we can claim that the following is true:</p>
+<div class="math notranslate nohighlight">
+\[
+\arg \max_{\theta} p(\theta|D) = \arg \max_{\theta} p(D|\theta)p(\theta)
+\]</div>
+<p>Now, differentiating <span class="math notranslate nohighlight">\(p(D|\theta)p(\theta)\)</span> w.r.t <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fd8c815b-1b8e-4e7b-82c2-b64154890f6f">
+<span class="eqno">(11)<a class="headerlink" href="#equation-fd8c815b-1b8e-4e7b-82c2-b64154890f6f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(D|\theta)p(\theta) &amp;= \theta^h(1-\theta)^{N-h}\cdot\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha, \beta)}\\
+                     &amp;= \frac{\theta^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}}{B(\alpha, \beta)}\\
+\text{Taking log for simplification}\\
+\log p(\theta|D)p(\theta) &amp;= (h+\alpha-1)\log(\theta) + (N-h+\beta-1)\log(1-\theta) - \log(B(\alpha, \beta))\\
+\\
+\frac{d}{d\theta} \log p(\theta|D)p(\theta) &amp;= \frac{h+\alpha-1}{\theta} - \frac{N-h+\beta-1}{1-\theta} = 0\\
+\\
+\therefore \theta_{MAP} = \frac{h+(\alpha-1)}{N+(\alpha-1)+(\beta-1)}
+\end{align}\]</div>
+<p>Now, we have the maximum probable value of <span class="math notranslate nohighlight">\(\theta\)</span> from the posterior but if we are interested in the posterior distribution, we must get the evidence!</p>
+</div>
+<div class="section" id="evidence">
+<h3>Evidence<a class="headerlink" href="#evidence" title="Permalink to this headline">¶</a></h3>
+<p>The formula for computing the evidence is the following:</p>
+<div class="math notranslate nohighlight">
+\[
+p(D) = \int\limits_{\theta}p(D|\theta)p(\theta)d\theta
+\]</div>
+<p>Substituting the values and deriving the formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9de30302-f7db-4545-8440-754d95cc6e1c">
+<span class="eqno">(12)<a class="headerlink" href="#equation-9de30302-f7db-4545-8440-754d95cc6e1c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(D) &amp;= \int\limits_{0}^{1}p(D|\theta)p(\theta)d\theta\\
+     &amp;= \int\limits_{0}^{1}(\theta)^h(1-\theta)^{N-h}\frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}d\theta\\
+     &amp;= \frac{1}{B(\alpha,\beta)}\int\limits_{0}^{1}(\theta)^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}d\theta\\
+     &amp;= \frac{1}{B(\alpha,\beta)}B(h+\alpha, N-h+\beta)\\
+     \therefore p(D) = \frac{B(h+\alpha, N-h+\beta)}{B(\alpha,\beta)}
+\end{align}\]</div>
+<p>The last step follows from definition of <a class="reference external" href="https://en.wikipedia.org/wiki/Beta_function">the Beta function</a>.</p>
+</div>
+<div class="section" id="posterior">
+<h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">¶</a></h3>
+<p>Now, we have all the required terms to compute the posterior <span class="math notranslate nohighlight">\(p(\theta|D)\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5ea3bf5e-d383-4255-a2f8-6c9d820d1c65">
+<span class="eqno">(13)<a class="headerlink" href="#equation-5ea3bf5e-d383-4255-a2f8-6c9d820d1c65" title="Permalink to this equation">¶</a></span>\[\begin{align}
+p(\theta|D) &amp;= \frac{p(D|\theta)}{p(D)}p(\theta)\\
+&amp;= \theta^h(1-\theta)^{n-h} \cdot \frac{B(\alpha,\beta)}{B(h+\alpha, N-h+\beta)} \cdot \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}{B(\alpha,\beta)}\\
+&amp;= \frac{\theta^{h+\alpha-1}(1-\theta)^{N-h+\beta-1}}{B(h+\alpha, N-h+\beta)}
+\\
+\therefore p(\theta|D) = Beta(h+\alpha, N-h+\beta)
+\end{align}\]</div>
+<p>We have successfully derived the posterior and it follows a Beta distribution.</p>
+</div>
+</div>
+<div class="section" id="map-is-not-the-expected-value-of-the-posterior">
+<h2>MAP is not the expected value of the posterior<a class="headerlink" href="#map-is-not-the-expected-value-of-the-posterior" title="Permalink to this headline">¶</a></h2>
+<p>From <a class="reference external" href="https://en.wikipedia.org/wiki/Beta_distribution">Wikipedia</a>, expected value of our posterior is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}_{\theta}(p(\theta|D)) = \frac{h+\alpha}{N + \alpha + \beta}
+\]</div>
+<p>We derived the MAP as:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_{MAP} = \frac{h+(\alpha-1)}{N+(\alpha-1)+(\beta-1)}
+\]</div>
+<p>We can see that both values are clearly different.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="bayesian-framework.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Bayesian Framework</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Zeel B Patel<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
