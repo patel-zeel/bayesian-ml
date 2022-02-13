@@ -258,8 +258,8 @@
 <h1>Bayesian Framework<a class="headerlink" href="#bayesian-framework" title="Permalink to this headline">¶</a></h1>
 <!-- <textarea> -->
 <p>The entire Bayesian modeling is based on the Bayes rule stated as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-22b649a9-58fd-4e44-a46c-37336766c88c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-22b649a9-58fd-4e44-a46c-37336766c88c" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-631cda1f-5607-464c-8607-3e84fbaf8718">
+<span class="eqno">(1)<a class="headerlink" href="#equation-631cda1f-5607-464c-8607-3e84fbaf8718" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(B|A) = \frac{p(A|B)}{p(A)}p(B)
 \end{equation}\]</div>
 <p>But, what is A and B? well, it depends on our need. As long as it follows the principles of math, we can model anything using the Bayes rule.</p>
@@ -267,12 +267,12 @@ p(B|A) = \frac{p(A|B)}{p(A)}p(B)
 <div class="section" id="modeling-the-parameters-e-g-coin-toss-linear-regression">
 <span id="parameters-framework"></span><h2>1. Modeling the parameters (e.g. coin toss, linear regression)<a class="headerlink" href="#modeling-the-parameters-e-g-coin-toss-linear-regression" title="Permalink to this headline">¶</a></h2>
 <p>Here, we will assume a prior distribution (mostly continuous) over the model parameters <span class="math notranslate nohighlight">\(\theta\)</span> and derive a posterior distribution of parameters conditioned on the observed data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f0a83abf-f3a6-4d50-b28d-1b12177c5ef9">
-<span class="eqno">(2)<a class="headerlink" href="#equation-f0a83abf-f3a6-4d50-b28d-1b12177c5ef9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-a242eeec-4a6a-4da6-95c6-4edf385f9fcd">
+<span class="eqno">(2)<a class="headerlink" href="#equation-a242eeec-4a6a-4da6-95c6-4edf385f9fcd" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \underbrace{p(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\theta)}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\theta)}_{\text{Prior}}
 \end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-1d95cf22-a0c3-4946-9228-4ed9b08e6ef0">
-<span class="eqno">(3)<a class="headerlink" href="#equation-1d95cf22-a0c3-4946-9228-4ed9b08e6ef0" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-ef6d6140-36e8-4929-adb1-f3d0cddf7677">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ef6d6140-36e8-4929-adb1-f3d0cddf7677" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(D) = \int_{\theta}p(D|\theta)p(\theta)d\theta
 \end{equation}\]</div>
 <p>In this type of modeling, distribution over the outputs may be derived from the predictive distribution of parameters.</p>
@@ -280,12 +280,12 @@ p(D) = \int_{\theta}p(D|\theta)p(\theta)d\theta
 <div class="section" id="modeling-the-outputs-e-g-gaussian-processes">
 <span id="outputs-framework"></span><h2>2. Modeling the outputs (e.g. Gaussian processes)<a class="headerlink" href="#modeling-the-outputs-e-g-gaussian-processes" title="Permalink to this headline">¶</a></h2>
 <p>Here, we will assume a prior distribution over the outputs (functions) <span class="math notranslate nohighlight">\(\mathbf{f}\)</span>. Posterior distribution is the distribution over the outputs conditioned on observed data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e9109582-40dc-46e0-a02f-4fed6f709355">
-<span class="eqno">(4)<a class="headerlink" href="#equation-e9109582-40dc-46e0-a02f-4fed6f709355" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-6ca8d8b2-5399-473a-965c-0ad5bfa28576">
+<span class="eqno">(4)<a class="headerlink" href="#equation-6ca8d8b2-5399-473a-965c-0ad5bfa28576" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \underbrace{p(\mathbf{f}|D)}_{\text{Posterior}} = \frac{\overbrace{p(D|\mathbf{f})}^{\text{Likelihood}}}{\underbrace{p(D)}_{\text{Evidence}}}\underbrace{p(\mathbf{f})}_{\text{Prior}}
 \end{equation}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-786e59a3-9cca-4686-b4ac-d9b915d2bfe6">
-<span class="eqno">(5)<a class="headerlink" href="#equation-786e59a3-9cca-4686-b4ac-d9b915d2bfe6" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-3adcee23-d097-4009-acdb-6bb94b260422">
+<span class="eqno">(5)<a class="headerlink" href="#equation-3adcee23-d097-4009-acdb-6bb94b260422" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 p(D) = \int_{\mathbf{f}}p(D|\mathbf{f})p(\mathbf{f})d\mathbf{f}
 \end{equation}\]</div>
 <p>Don’t worry about the details if you got the bigger picture for now.</p>
